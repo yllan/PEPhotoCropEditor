@@ -214,7 +214,9 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)done:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:)]) {
+    if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:cropRect:)]) {
+        [self.delegate cropViewController:self didFinishCroppingImage:self.cropView.croppedImage cropRect: self.cropView.zoomedCropRect];
+    } else if ([self.delegate respondsToSelector:@selector(cropViewController:didFinishCroppingImage:)]) {
         [self.delegate cropViewController:self didFinishCroppingImage:self.cropView.croppedImage];
     }
 }
